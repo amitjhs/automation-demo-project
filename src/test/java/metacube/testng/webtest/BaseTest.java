@@ -46,13 +46,18 @@ public class BaseTest {
 		case Chrome:
 			_driver = Browser.getWebDriver(LaunchingBrowser.Chrome);
 			break;
+			
+		case Edge:
+			_driver = Browser.getWebDriver(LaunchingBrowser.Edge);
+			break;
+			
 		}
 		return _driver;
 	}
 	
 	@BeforeClass(alwaysRun = true)
 	@Parameters("browser")
-	public void LaunchApplication(@Optional("Chrome") String  _browser)
+	public void LaunchApplication(@Optional("Edge") String  _browser)
 	{
 		if(driver!=null)
 			return;

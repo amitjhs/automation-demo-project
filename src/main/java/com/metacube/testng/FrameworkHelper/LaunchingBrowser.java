@@ -4,6 +4,7 @@ public enum LaunchingBrowser {
 	
 		FireFox,
 		Chrome,
-		IE
+		IE,
+		Edge
 
 }

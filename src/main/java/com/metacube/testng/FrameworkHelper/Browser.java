@@ -77,12 +77,12 @@ public class Browser
 	{
 		if (_webDriver == null)
 		{
-			File f1 = new File("./Browsers/MicrosoftWebDriver.exe");  
-			String Path = f1.getPath();
-			System.out.print("Path Is " + Path);
-			System.setProperty("webdriver.edge.driver", Path);
-			_webDriver = new EdgeDriver();
-
+			File f1 = new File("./Browsers");  
+	    	String Path = f1.getPath() + "/MicrosoftWebDriver.exe";
+	    	System.out.print("Path Is " + Path);
+	    	System.setProperty("webdriver.edge.driver", Path);
+	    	_webDriver = new EdgeDriver();
+			
 		}
 	}
 
@@ -126,7 +126,7 @@ public class Browser
 		return _webDriver;
 	}
 
-		
+
 	public static void setWebDriver(LaunchingBrowser driverType)
 	{
 
@@ -142,6 +142,10 @@ public class Browser
 
 		case Chrome:
 			getChromeDriver();
+			break;
+
+		case Edge:
+			getEdgeDriver();
 			break;
 
 		}
@@ -167,7 +171,7 @@ public class Browser
 
 	}
 
-	
+
 	public static String getTitle(WebDriver driver)
 	{
 		return driver.getTitle();

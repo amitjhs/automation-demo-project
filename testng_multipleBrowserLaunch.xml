@@ -26,4 +26,14 @@
       <class name="metacube.testng.webtest.TestProductDetails"/>
     </classes>
   </test> <!-- Test -->
+  
+  <test name="TestEdge" parallel="classes" thread-count="3">
+  <parameter name="browser" value="Edge"/>	
+     <classes>
+      <class name="metacube.testng.webtest.TestHomePage"/>
+      <class name="metacube.testng.webtest.TestMyAccount"/>
+      <class name="metacube.testng.webtest.TestProductDetails"/>
+    </classes>
+  </test> <!-- Test -->
+  
 </suite> <!-- Suite -->

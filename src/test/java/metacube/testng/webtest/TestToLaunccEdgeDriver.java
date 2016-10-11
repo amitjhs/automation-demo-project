@@ -13,7 +13,7 @@ public class TestToLaunccEdgeDriver {
     	System.out.print("Path Is " + Path);
     	System.setProperty("webdriver.edge.driver", Path);
     	WebDriver driver = new EdgeDriver();
-    	driver.get("http://www.mytestsite.com");
+    	driver.get("http://www.metacube.com");
     	
 	}
 }

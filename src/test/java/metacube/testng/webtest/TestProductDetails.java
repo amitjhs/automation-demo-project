@@ -16,7 +16,7 @@ import com.metacube.testng.FrameworkHelper.Prop;
 public class TestProductDetails extends BaseTest{
 	String expectedTitle = "Metacube Software";
 
-		@Test
+	@Test
 	public void GivenProductsImagesOnHomePageWhenClickOnAnyProductImageThenProductDetailsPageShouldRender() {
 
 		String actualTitle = driver.getTitle();
