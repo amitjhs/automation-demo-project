@@ -1,1 +1,0 @@
-mvn site -Dsurefire.suiteXmlFiles=testng.xml,testng_BrowserIE.xml,testng_BrowserChrome.xml,testng_multipleBrowserLaunch.xml
