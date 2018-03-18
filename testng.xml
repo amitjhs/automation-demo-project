@@ -3,6 +3,7 @@
 <suite name="Suite">
   <test name="Test">
  <parameter name="browser" value="chrome"/>
+      <parameter name="resolution" value="1920,1080"/>
     <classes>
       <class name="demo.testng.webtest.SimplePageTest"/>
     </classes>

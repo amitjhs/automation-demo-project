@@ -19,7 +19,7 @@ import static org.openqa.selenium.remote.BrowserType.*;
 public class BrowserFactory {
 
 	
-	public WebDriver getDriver(String browser,String resolution) {
+	public WebDriver getDriver(String browser, String resolution) {
 		
 		if (FIREFOX.equals(browser)) {
 
@@ -60,7 +60,7 @@ public class BrowserFactory {
 		
 		if(!resolution.contains("custom"))
 		{
-			options.addArguments(String.format("--window-size=%s",resolution));
+			options.addArguments(String.format("--window-size=%s", resolution));
 		}
 	    
 		return new FirefoxDriver(options);

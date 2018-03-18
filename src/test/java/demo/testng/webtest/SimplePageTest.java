@@ -18,7 +18,7 @@ public class SimplePageTest extends BaseTest {
     }
 
     @Test(dataProvider="productvariant")
-    public void VerifyProductDescriptionBasedOnProductVariant(String variant,String description) {
+    public void VerifyProductDescriptionBasedOnProductVariant(String variant, String description) {
     	MAssert.assertTrue(page.isLoaded());
         page.selectProductVariantByValue(variant);
         String productSku = page.getProductDescription();
@@ -27,7 +27,11 @@ public class SimplePageTest extends BaseTest {
     @DataProvider
     public String[][] productvariant() throws Exception{
   	    // Setting up the Test Data Excel file
-    	String[][] testObjArray = Excel.ReadExcelSheet("D://Automation//git//automation-demo-project//src//test//resources//DataSet//productdetails.xls","product");
+        //String xlsFileName = "D://Automation//git//automation-demo-project//src//test//resources//DataSet//productdetails.xls";
+        String xlsFileName = getClass().getClassLoader().getResource("DataSet/productdetails.xls").getPath();
+    	String[][] testObjArray = Excel.ReadExcelSheet(xlsFileName,"product");
+
+
        	return (testObjArray);
   		}
 }

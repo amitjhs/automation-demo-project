@@ -18,12 +18,12 @@ public class BaseTest {
     public String defaultURL = prop.get("BaseURL");
 
     @BeforeClass(alwaysRun = true)
-	@Parameters({"browser","resolution"})
-	public void LaunchApplication(@Optional("chrome") String browser) {
+	@Parameters({"browser", "resolution"})
+	public void LaunchApplication(@Optional("chrome") String browser, @Optional("1920,1080") String resolution) {
 		if (driver != null) {
             return;
         }
-		driver = new BrowserFactory().getDriver(browser,"1920,1080");
+		driver = new BrowserFactory().getDriver(browser, resolution);
 		driver.get(defaultURL);
 	}
 
@@ -33,7 +33,10 @@ public class BaseTest {
 	}
 
 	private void releaseWebDriver() {
-		driver.quit();
+		if (driver == null){
+			return;
+		}
+    	driver.quit();
 		if (driver.toString().contains("InternetExplorerDriver")) {
 			try {
 				Runtime.getRuntime().exec("taskkill /F /IM IEDriverServer.exe");
