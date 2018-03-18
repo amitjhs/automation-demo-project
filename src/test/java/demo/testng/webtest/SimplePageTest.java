@@ -1,5 +1,4 @@
 package demo.testng.webtest;
-
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -9,7 +8,6 @@ import com.simplepage.functionaltest.FrameworkHelper.*;
 import demo.testng.page.SimplePage;
 
 public class SimplePageTest extends BaseTest {
-
     private SimplePage page;
 
     @BeforeMethod
@@ -24,13 +22,12 @@ public class SimplePageTest extends BaseTest {
         String productSku = page.getProductDescription();
         MAssert.assertAreEqual(productSku,description);
     }
+    
     @DataProvider
-    public String[][] productvariant() throws Exception{
+    public Object[][] productvariant() throws Exception{
   	    // Setting up the Test Data Excel file
-        //String xlsFileName = getClass().getClassLoader().getResource("DataSet/productdetails.xls").getPath();
-        String xlsFileName = "D://Automation//git//automation-demo-project//src//test//resources//DataSet//productdetails.xls";
-    	String[][] testObjArray = Excel.ReadExcelSheet(xlsFileName,"product");
+        String xlsFileName = getClass().getClassLoader().getResource("DataSet/productdetails.xls").getPath();
+    	Object[][] testObjArray = Excel.ReadExcelSheet(xlsFileName,"product");
        	return (testObjArray);
   		}
 }
-

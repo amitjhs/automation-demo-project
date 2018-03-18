@@ -2,6 +2,7 @@ package demo.testng.webtest;
 
 import java.io.IOException;
 
+import demo.testng.page.SimplePage;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.DataProvider;
@@ -9,10 +10,9 @@ import org.testng.annotations.Test;
 
 import com.simplepage.functionaltest.FrameworkHelper.*;
 
-
-
 public class BrowserResolutionTest {
 	WebDriver driver;
+	SimplePage page;
  //   private SimplePage page;
     private Prop prop = new Prop();
     public String defaultURL = prop.get("BaseURL");
@@ -21,15 +21,15 @@ public class BrowserResolutionTest {
     public void LaunchBrowserWithDifferentResolutions(String browser,String resolution) {
     	driver = new BrowserFactory().getDriver(browser,resolution);
 		driver.get(defaultURL);
-	//	this.page = new SimplePage(driver);
-    	//MAssert.assertTrue(page.isLoaded());
+		this.page = new SimplePage(driver);
+    	MAssert.assertTrue(page.isLoaded());
     }
-
+    
     @DataProvider
-    public String[][] browser() throws Exception{
+    public Object[][] browser() throws Exception{
   	    // Setting up the Test Data Excel file
     	 String xlsFileName = getClass().getClassLoader().getResource("DataSet/browser.xls").getPath();
-    	 String[][] testObjArray = Excel.ReadExcelSheet(xlsFileName,"product");
+    	 Object[][] testObjArray = Excel.ReadExcelSheet(xlsFileName,"product");
     	return (testObjArray);
   		}
 

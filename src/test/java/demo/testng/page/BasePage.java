@@ -8,7 +8,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class BasePage {
 
-
     protected WebDriver driver;
     WebDriverWait wait;
 
@@ -18,12 +17,10 @@ public class BasePage {
         this.wait = new WebDriverWait(driver, 10);
     }
 
-
     public BasePage clickOnLink(String linkText) {
         driver.findElement(By.linkText(linkText)).click();
         return this;
     }
-
 
     public String getTitle() {
         return driver.getTitle();
@@ -52,6 +49,7 @@ public class BasePage {
             e.printStackTrace();
         }
     }
+
     public void MoveToElement(WebElement element) {
         Actions actions = new Actions(driver);
         actions.moveToElement(element);

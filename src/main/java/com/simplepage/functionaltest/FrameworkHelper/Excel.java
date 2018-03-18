@@ -1,11 +1,7 @@
 package com.simplepage.functionaltest.FrameworkHelper;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.nio.file.FileSystems;
-import java.util.Properties;
-
 import jxl.*;
 import jxl.read.biff.BiffException;
 
@@ -15,12 +11,12 @@ public class Excel {
 	
 		String cellvalue = "";
 
-		String path = FileSystems.getDefault().getPath(_ExcelFileName).toString();
+	//	String path = FileSystems.getDefault().getPath(_ExcelFileName).toString();
 		 
 		try {
 			//Create a workbook object from the file at specified location. 
 			//Change the path of the file as per the location on your computer. 
-			Workbook wrk =  Workbook.getWorkbook(new File(path));
+			Workbook wrk =  Workbook.getWorkbook(new File(_ExcelFileName));
 
 			//Obtain the reference to the first sheet in the workbook
 			Sheet sheet = wrk.getSheet(_SheetName);
@@ -41,15 +37,15 @@ public class Excel {
 		return cellvalue;
 	}
 
-	public static String[][] ReadExcelSheet(String _ExcelFileName, String _SheetName) throws Exception {
+	public static Object[][] ReadExcelSheet(String _ExcelFileName, String _SheetName) throws Exception {
 		{
-			String path = FileSystems.getDefault().getPath(_ExcelFileName).toString();
+		//	String path = FileSystems.getDefault().getPath(_ExcelFileName).toString();
 
 			String strArr[][] = null;
 			Sheet excelsheet = null;
 			try
 			{
-				Workbook workbook = Workbook.getWorkbook(new File(path));  //should be global
+				Workbook workbook = Workbook.getWorkbook(new File(_ExcelFileName));  //should be global
 				excelsheet = workbook.getSheet(_SheetName);    
 				int noOfRows = excelsheet.getRows();
 				int noOfcols = excelsheet.getColumns();
@@ -57,8 +53,6 @@ public class Excel {
 				strArr = new String[noOfRows][noOfcols];
 				Cell cell = null;
 				String content = null;
-				String key=null;
-				int[] indexMapArray=new int[noOfcols]; 
 				for(int row = 0; row < noOfRows; row++)
 				{
 					for(int col = 0; col < noOfcols; col++)

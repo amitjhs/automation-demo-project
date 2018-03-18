@@ -10,6 +10,8 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.safari.SafariDriver;
+import org.openqa.selenium.Dimension;
+
 
 import java.util.Arrays;
 
@@ -23,7 +25,7 @@ public class BrowserFactory {
 		
 		if (FIREFOX.equals(browser)) {
 
-			return getFirefoxDriver(resolution);
+			return getFirefoxDriver();
 
 		} else if (CHROME.equals(browser)) {
 
@@ -43,26 +45,17 @@ public class BrowserFactory {
 
 		} else {
 
-			return getFirefoxDriver(resolution);
-
+			return getFirefoxDriver();
 		}
 	}
 
-
-	private WebDriver getFirefoxDriver(String resolution) {
+	private WebDriver getFirefoxDriver() {
 		String driverPath = getClass().getClassLoader().getResource("browsers/windows/geckodriver.exe").getPath();
 		if ("Mac".equals(getOS())){
 			driverPath = getClass().getClassLoader().getResource("browsers/mac/geckodriver").getPath();
 		}
-
 		System.setProperty("webdriver.gecko.driver", driverPath);
 		FirefoxOptions options = new FirefoxOptions();
-		
-		if(!resolution.contains("custom"))
-		{
-			options.addArguments(String.format("--window-size=%s", resolution));
-		}
-	    
 		return new FirefoxDriver(options);
 	}
 
@@ -74,14 +67,14 @@ public class BrowserFactory {
 
 		ChromeOptions options = new ChromeOptions();
 		options.addArguments("chrome.switches", "--disable-extensions");
+
 		if(!resolution.contains("custom"))
 		{
 			options.addArguments(String.format("--window-size=%s",resolution));
 		}
+
 		System.setProperty("webdriver.chrome.driver", driverPath);
 		DesiredCapabilities capabilities = DesiredCapabilities.chrome();
-		capabilities.setCapability("chrome.switches", Arrays.asList("--start-maximized"));
-
 		return new ChromeDriver(options);
 	}
 
@@ -107,6 +100,16 @@ public class BrowserFactory {
 		capabilities.setCapability(CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR, "ignore");
 
 		return new SafariDriver(capabilities);
+	}
+
+	public Dimension resizeBrowser(String resolution) {
+		String[] tokens = resolution.split(",", -1);
+
+		Integer width = Integer.valueOf(tokens[0]);
+		Integer hight = Integer.valueOf(tokens[1]);
+		Dimension d = new Dimension(width,hight);
+	//Resize current window to the set dimension
+		return d;
 	}
 
 
