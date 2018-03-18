@@ -40,12 +40,7 @@ public class SimplePage extends BasePage {
         MoveToElement(_packagedQtyDropDown);
         Select _dropdown = new Select(_packagedQtyDropDown);
         _dropdown.selectByValue(value);
-        waitForPageLoad();
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        waitfor(2000);
     }
 
     public String getProductDescription() {

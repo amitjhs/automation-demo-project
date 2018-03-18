@@ -1,9 +1,10 @@
 package demo.testng.webtest;
 
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import com.simplepage.functionaltest.FrameworkHelper.MAssert;
+import com.simplepage.functionaltest.FrameworkHelper.*;
 
 import demo.testng.page.SimplePage;
 
@@ -16,12 +17,18 @@ public class SimplePageTest extends BaseTest {
         this.page = new SimplePage(driver);
     }
 
-    @Test
-    public void VerifyProductDescriptionBasedOnProductVariant() {
+    @Test(dataProvider="productvariant")
+    public void VerifyProductDescriptionBasedOnProductVariant(String variant,String description) {
     	MAssert.assertTrue(page.isLoaded());
-        page.selectProductVariantByValue("2 / Pack");
+        page.selectProductVariantByValue(variant);
         String productSku = page.getProductDescription();
-        MAssert.assertAreEqual(productSku,"30.3 mil Pen Point Size - Black - Blue Barrel - 2 / Pack");
+        MAssert.assertAreEqual(productSku,description);
     }
+    @DataProvider
+    public String[][] productvariant() throws Exception{
+  	    // Setting up the Test Data Excel file
+    	String[][] testObjArray = Excel.ReadExcelSheet("D://Automation//git//automation-demo-project//src//test//resources//DataSet//productdetails.xls","product");
+       	return (testObjArray);
+  		}
 }
 

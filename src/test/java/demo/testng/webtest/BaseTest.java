@@ -18,13 +18,12 @@ public class BaseTest {
     public String defaultURL = prop.get("BaseURL");
 
     @BeforeClass(alwaysRun = true)
-	@Parameters("browser")
+	@Parameters({"browser","resolution"})
 	public void LaunchApplication(@Optional("chrome") String browser) {
 		if (driver != null) {
             return;
         }
-
-		driver = new BrowserFactory().getDriver(browser);
+		driver = new BrowserFactory().getDriver(browser,"1920,1080");
 		driver.get(defaultURL);
 	}
 

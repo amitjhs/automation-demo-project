@@ -59,4 +59,12 @@ public class BasePage {
     public void waitForPageLoad() {
         wait.until((driver ->((JavascriptExecutor) driver).executeScript("return document.readyState").equals("complete")));
     }
+    public void waitfor(int n)
+    {
+    	try {
+            Thread.sleep(n);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 }

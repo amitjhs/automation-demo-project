@@ -5,6 +5,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -17,111 +18,122 @@ import static org.openqa.selenium.remote.BrowserType.*;
 
 public class BrowserFactory {
 
-    public WebDriver getDriver(String browser) {
+	
+	public WebDriver getDriver(String browser,String resolution) {
+		
+		if (FIREFOX.equals(browser)) {
 
-        if (FIREFOX.equals(browser)) {
+			return getFirefoxDriver(resolution);
 
-            return getFirefoxDriver();
+		} else if (CHROME.equals(browser)) {
 
-        } else if (CHROME.equals(browser)) {
+			return getChromeDriver(resolution);
 
-            return getChromeDriver();
+		} else if (IE.equals(browser)) {
 
-        } else if (IE.equals(browser)) {
+			return getIEDriver();
 
-            return getIEDriver();
+		} else if (EDGE.equals(browser)) {
 
-        } else if (EDGE.equals(browser)) {
+			return getEdgeDriver();
 
-            return getEdgeDriver();
+		} else if (SAFARI.equals(browser)) {
 
-        } else if (SAFARI.equals(browser)) {
+			return getSafariDriver();
 
-            return getSafariDriver();
+		} else {
 
-        } else {
+			return getFirefoxDriver(resolution);
 
-            return getFirefoxDriver();
-
-        }
-    }
-
-
-    private WebDriver getFirefoxDriver() {
-        String driverPath = getClass().getClassLoader().getResource("browsers/windows/geckodriver.exe").getPath();
-        if ("Mac".equals(getOS())){
-            driverPath = getClass().getClassLoader().getResource("browsers/mac/geckodriver").getPath();
-        }
-
-        System.setProperty("webdriver.gecko.driver", driverPath);
-        return new FirefoxDriver();
-    }
-
-    private WebDriver getChromeDriver() {
-        String driverPath = getClass().getClassLoader().getResource("browsers/windows/chromedriver.exe").getPath();
-        if ("Mac".equals(getOS())){
-            driverPath = getClass().getClassLoader().getResource("browsers/mac/chromedriver").getPath();
-        }
-
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("chrome.switches", "--disable-extensions");
-        System.setProperty("webdriver.chrome.driver", driverPath);
-
-        DesiredCapabilities capabilities = DesiredCapabilities.chrome();
-        capabilities.setCapability("chrome.switches", Arrays.asList("--start-maximized"));
-
-        return new ChromeDriver(options);
-    }
-
-    private WebDriver getEdgeDriver() {
-        String driverPath = getClass().getClassLoader().getResource("browsers/windows/MicrosoftWebDriver.exe").getPath();
-        System.setProperty("webdriver.edge.driver", driverPath);
-
-        return new EdgeDriver();
-    }
-
-    private WebDriver getIEDriver() {
-        String driverPath = getClass().getClassLoader().getResource("browsers/windows/IEDriverServer.exe").getPath();
-        System.setProperty("webdriver.ie.driver", driverPath);
-
-        DesiredCapabilities capabilities = DesiredCapabilities.internetExplorer();
-        capabilities.setCapability("unexpectedAlertBehaviour", "ignore");
-
-        return new InternetExplorerDriver(capabilities);
-    }
-
-    private WebDriver getSafariDriver() {
-        DesiredCapabilities capabilities = DesiredCapabilities.safari();
-        capabilities.setCapability(CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR, "ignore");
-
-        return new SafariDriver(capabilities);
-    }
+		}
+	}
 
 
-    public String getOS () {
-        String os = System.getProperty("os.name").toLowerCase();
+	private WebDriver getFirefoxDriver(String resolution) {
+		String driverPath = getClass().getClassLoader().getResource("browsers/windows/geckodriver.exe").getPath();
+		if ("Mac".equals(getOS())){
+			driverPath = getClass().getClassLoader().getResource("browsers/mac/geckodriver").getPath();
+		}
 
-        if (os.contains("win")) {
+		System.setProperty("webdriver.gecko.driver", driverPath);
+		FirefoxOptions options = new FirefoxOptions();
+		
+		if(!resolution.contains("custom"))
+		{
+			options.addArguments(String.format("--window-size=%s",resolution));
+		}
+	    
+		return new FirefoxDriver(options);
+	}
 
-            return "Windows";
+	private WebDriver getChromeDriver(String resolution) {
+		String driverPath = getClass().getClassLoader().getResource("browsers/windows/chromedriver.exe").getPath();
+		if ("Mac".equals(getOS())){
+			driverPath = getClass().getClassLoader().getResource("browsers/mac/chromedriver").getPath();
+		}
 
-        } else if (os.contains("nux") || os.contains("nix")) {
+		ChromeOptions options = new ChromeOptions();
+		options.addArguments("chrome.switches", "--disable-extensions");
+		if(!resolution.contains("custom"))
+		{
+			options.addArguments(String.format("--window-size=%s",resolution));
+		}
+		System.setProperty("webdriver.chrome.driver", driverPath);
+		DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+		capabilities.setCapability("chrome.switches", Arrays.asList("--start-maximized"));
 
-            return "Linux";
+		return new ChromeDriver(options);
+	}
 
-        } else if (os.contains("mac")) {
+	private WebDriver getEdgeDriver() {
+		String driverPath = getClass().getClassLoader().getResource("browsers/windows/MicrosoftWebDriver.exe").getPath();
+		System.setProperty("webdriver.edge.driver", driverPath);
 
-            return "Mac";
+		return new EdgeDriver();
+	}
 
-        } else if (os.contains("sunos")) {
+	private WebDriver getIEDriver() {
+		String driverPath = getClass().getClassLoader().getResource("browsers/windows/IEDriverServer.exe").getPath();
+		System.setProperty("webdriver.ie.driver", driverPath);
 
-            return "Solaris";
+		DesiredCapabilities capabilities = DesiredCapabilities.internetExplorer();
+		capabilities.setCapability("unexpectedAlertBehaviour", "ignore");
 
-        } else {
+		return new InternetExplorerDriver(capabilities);
+	}
 
-            return "Other";
+	private WebDriver getSafariDriver() {
+		DesiredCapabilities capabilities = DesiredCapabilities.safari();
+		capabilities.setCapability(CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR, "ignore");
 
-        }
-    }
+		return new SafariDriver(capabilities);
+	}
+
+
+	public String getOS () {
+		String os = System.getProperty("os.name").toLowerCase();
+
+		if (os.contains("win")) {
+
+			return "Windows";
+
+		} else if (os.contains("nux") || os.contains("nix")) {
+
+			return "Linux";
+
+		} else if (os.contains("mac")) {
+
+			return "Mac";
+
+		} else if (os.contains("sunos")) {
+
+			return "Solaris";
+
+		} else {
+
+			return "Other";
+
+		}
+	}
 
 }
