@@ -20,9 +20,6 @@ public class BaseTest {
     @BeforeClass(alwaysRun = true)
 	@Parameters({"browser", "resolution"})
 	public void LaunchApplication(@Optional("chrome") String browser, @Optional("1920,1080") String resolution) {
-		if (driver != null) {
-            return;
-        }
 		driver = new BrowserFactory().getDriver(browser, resolution);
 		driver.get(defaultURL);
 	}

@@ -25,13 +25,6 @@ public class BrowserResolutionTest {
     	//MAssert.assertTrue(page.isLoaded());
     }
 
-    @Test
-    public void test1() throws Exception{
-  	    // Setting up the Test Data Excel file
-    	 String xlsFileName = getClass().getClassLoader().getResource("DataSet/src/test/resources/browser.xls").getPath();
-    	 String[][] testObjArray = Excel.ReadExcelSheet(xlsFileName,"product");
-  		}
-
     @DataProvider
     public String[][] browser() throws Exception{
   	    // Setting up the Test Data Excel file
