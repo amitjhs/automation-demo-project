@@ -1,5 +1,6 @@
 package demo.testng.page;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -10,16 +11,16 @@ import org.openqa.selenium.support.ui.Select;
 
 public class SimplePage extends BasePage {
 
-    @FindBy(how = How.XPATH, using = "//div[@ng-controller='ProductController']")
+    @FindBy(how = How.XPATH, using = "//div[@id='productDetail']")
     private WebElement _productDetailsPage;
 
     @FindBy(how = How.CLASS_NAME, using = "sku")
     private WebElement _productSku;
 
-    @FindBy(how = How.XPATH, using = "//select[@data-key='Packaged-Quantity']")
+    @FindBy(how = How.XPATH, using = "//select[@title='Packaged Quantity']")
     private WebElement _packagedQtyDropDown;
 
-    @FindBy(how = How.XPATH, using = "//div[@class='product-description']/span")
+    @FindBy(how = How.XPATH, using = "//div[@class='secondaryDesc']")
     private WebElement _productDescription;
 
     // Default Constructor
@@ -36,11 +37,11 @@ public class SimplePage extends BasePage {
     }
 
     public void selectProductVariantByValue(String value) {
-        setElementInVisibleArea(_packagedQtyDropDown);
-        MoveToElement(_packagedQtyDropDown);
+    	setElementInVisibleArea(_packagedQtyDropDown);
+ //       MoveToElement(_packagedQtyDropDown);
         Select _dropdown = new Select(_packagedQtyDropDown);
         _dropdown.selectByValue(value);
-        waitfor(2000);
+        waitForPageLoaded();
     }
 
     public String getProductDescription() {

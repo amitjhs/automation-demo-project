@@ -1,6 +1,5 @@
 package demo.testng.page;
 
-import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
@@ -58,9 +57,7 @@ public class BasePage {
         actions.moveToElement(element);
     }
 
-    public void waitForPageLoad() {
-        //wait.until((driver ->((JavascriptExecutor) driver).executeScript("return document.readyState").equals("complete")));
-
+    public void waitForPageLoaded() {
         ExpectedCondition<Boolean> expectation = new
                 ExpectedCondition<Boolean>() {
                     public Boolean apply(WebDriver driver) {
@@ -72,10 +69,8 @@ public class BasePage {
             WebDriverWait wait = new WebDriverWait(driver, 30);
             wait.until(expectation);
         } catch (Throwable error) {
-            Assert.fail("Timeout waiting for Page Load Request to complete.");
         }
     }
-
 
     public void waitfor(int n)
     {

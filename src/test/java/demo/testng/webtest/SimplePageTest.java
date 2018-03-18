@@ -27,11 +27,9 @@ public class SimplePageTest extends BaseTest {
     @DataProvider
     public String[][] productvariant() throws Exception{
   	    // Setting up the Test Data Excel file
-        //String xlsFileName = "D://Automation//git//automation-demo-project//src//test//resources//DataSet//productdetails.xls";
-        String xlsFileName = getClass().getClassLoader().getResource("DataSet/productdetails.xls").getPath();
+        //String xlsFileName = getClass().getClassLoader().getResource("DataSet/productdetails.xls").getPath();
+        String xlsFileName = "D://Automation//git//automation-demo-project//src//test//resources//DataSet//productdetails.xls";
     	String[][] testObjArray = Excel.ReadExcelSheet(xlsFileName,"product");
-
-
        	return (testObjArray);
   		}
 }
